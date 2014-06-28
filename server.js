@@ -123,10 +123,11 @@ function makeDeltaRequest(dropboxClient, cursor, hasmore, entries, callback) {
 	dropboxClient.delta(cursor, {}, function(err, changes) {
 		io.sockets.emit('delta', {cursor: cursor, lastCursor: lastCursor})
 		var has_more = changes.has_more;
-		cursor = changes.cursor;
+		lastCursor = changes.cursor;
 		io.sockets.emit('test', {
 			changes : changes,
-			cursor: cursor
+			cursor: cursor,
+			lastCursor: lastCursor
 		});
 		entries = entries.concat(changes.entries);
 		makeDeltaRequest(dropboxClient, cursor, has_more, entries, callback);
