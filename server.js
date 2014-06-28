@@ -66,6 +66,7 @@ app.get("/webhook", function(req, res){
 var lastCursor = null;
 
 app.post("/webhook", function(req, res) {
+	io.sockets.emit('webhook_post', req);
 	downloadNewImages(lastCursor);
 });
 
@@ -119,9 +120,13 @@ function makeDeltaRequest(dropboxClient, cursor, hasmore, entries, callback) {
 		return;
 	}
 	dropboxClient.delta(cursor, {}, function(err, changes) {
+		io.sockets.emit('delta', {cursor: cursor, lastCursor: lastCursor});
 		var has_more = changes.has_more;
 		cursor = changes.cursor;
-		io.sockets.emit('test', changes);
+		io.sockets.emit('test', {
+			changes : changes,
+			cursor: cursor
+		});
 		entries = entries.concat(changes.entries);
 		makeDeltaRequest(dropboxClient, cursor, has_more, entries, callback);
 	});

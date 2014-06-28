@@ -8,7 +8,14 @@
 	 * for debug
 	 */
 	 socket.on('test', function(data) {
-	 	console.log(data)
+	 	console.log(data);
+	 });
+	 socket.on('webhook_post', function(req) {
+	 	console.log(req);
+	 });
+
+	 socket.on('delta', function (data){
+	 	console.log(data);
 	 });
 	 socket.on('firstShow', function(data){
 	 	var clean = $('#imgContent').find('a').remove();
