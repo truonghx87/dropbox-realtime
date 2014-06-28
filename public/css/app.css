@@ -1,0 +1,400 @@
+/* ==========================================================================
+   Normalize css:
+   ========================================================================== */
+/*! normalize.css v2.1.2 | MIT License | git.io/normalize */article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,video{display:inline-block}audio:not([controls]){display:none;height:0}[hidden]{display:none}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}a:focus{outline:thin dotted}a:active,a:hover{outline:0}h1{font-size:2em;margin:.67em 0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}dfn{font-style:italic}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}mark{background:#ff0;color:#000}code,kbd,pre,samp{font-family:monospace,serif;font-size:1em}pre{white-space:pre-wrap}q{quotes:"\201C" "\201D" "\2018" "\2019"}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:0}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}button,input{line-height:normal}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}
+
+/* ==========================================================================
+   Helpers: UI - Layout class helpers
+   ========================================================================== */
+.Hfl{float:left}.Hfr{float:right}.Hfn{float:none}.Hcaps{text-transform:uppercase}.Hir{display:block;text-indent:-99999px}.Htxtl{text-align:left}.Htxtr{text-align:right}.Htxtj{text-align:justify}.Htxtc{text-align:center}.Hdn{display:none}.Hdb{display:block}.Hdi{display:inline}.Hdib{display:inline-block}.Hv{visibility:visible}.Hvh{visibility:hidden}.Hcb{clear:both}.Hcf:after{content:"";display:table;clear:both}.Hnmg{margin:0}.Hnpd{padding:0}.Hnmp{margin:0;padding:0}.Hmgc{margin:0 auto}.Hbdn{border:0}.Hfwb{font-weight:bold}.Hfwn{font-weight:normal}.Hcp{cursor:pointer}.Hcd{cursor:default}
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+}
+
+/* font-family: 'Open Sans', sans-serif; */
+
+body {
+  background: #FFF;
+  font-size: 62.5%;
+  font-family: 'Open Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+}
+
+ul, 
+ol, 
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+a:hover {
+  color: #fcbc34;
+  text-decoration: none;
+}
+
+/***********
+* @Image wrapper
+************/
+#imgContent {
+  width: 100%;
+}
+
+#imgContent .animated {
+  position: relative;
+  z-index: 10;
+}
+
+#imgContent a, 
+#imgContent img { display: block;}
+
+#imgContent a {
+  float: left;
+  width: 25%; /*change here to change grid view*/
+  
+}
+#imgContent img {
+  width: 100%;
+  /*border:1px solid black;*/
+}
+
+/***********
+* @media queries
+************/
+
+.brandinglogostyle
+{
+width:25%;
+display:block;
+float:left;
+}
+
+.instantlylogostyle
+{
+width:155px;
+padding:8px;
+}
+
+/* first breakpoint starts here */
+@media all and (max-width: 900px) {
+ 
+  /* content */
+  #imgContent a {
+    width: 50%;
+  }
+
+  .brandinglogostyle {
+    width:50%;
+  }
+}
+
+/* last breakpoint starts here */
+@media all and (max-width: 612px) {
+  /* content */
+  #imgContent a {
+    display: block;
+    float: none;
+    width: 100%;
+  }
+  
+  .brandinglogostyle {
+    width:100%;
+  }
+
+  .modal-title {
+    font-size:18px!important;
+  }
+  
+  .modal-body {
+    font-size: 14px!important;
+  }
+
+  .footertext {font-size:2em!important;}
+
+}
+
+@viewport{
+    width: device-width;
+}
+
+@-ms-viewport{
+    width: device-width;
+}
+
+/***********
+* @modal boostrap css
+************/
+
+.close {
+    color: #000000;
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    opacity: 0.2;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+button.close {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 0 none;
+    cursor: pointer;
+    padding: 0;
+}
+.modal-title{font-size:4em; line-height: 1.42857;}
+
+.modal-open {
+  overflow: hidden;
+}
+.modal {
+  display: none;
+  overflow: auto;
+  overflow-y: scroll;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+}
+.modal.fade .modal-dialog {
+  -webkit-transform: translate(0, -25%);
+  -ms-transform: translate(0, -25%);
+  transform: translate(0, -25%);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  -moz-transition: -moz-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+}
+.modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 10px;
+}
+.modal-content {
+  position: relative;
+  background-color: #ffffff;
+  border: 1px solid #999999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  background-clip: padding-box;
+  outline: none;
+}
+.fade.in {
+    opacity: 1;
+}
+.fade {
+    opacity: 0;
+    transition: opacity 0.15s linear 0s;
+}
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000000;
+}
+.modal-backdrop.fade {
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.modal-backdrop.in {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+.modal-header {
+  padding: 15px;
+  border-bottom: 1px solid #e5e5e5;
+  min-height: 16.42857143px;
+}
+.modal-header .close {
+  margin-top: -2px;
+}
+.modal-title {
+  margin: 0;
+  line-height: 1.42857143;
+}
+.modal-body {
+  min-height: 90px;
+  font-size: 3em;
+}
+
+.modal-footer .btn + .btn {
+  margin-left: 5px;
+  margin-bottom: 0;
+}
+.modal-footer .btn-group .btn + .btn {
+  margin-left: -1px;
+}
+.modal-footer .btn-block + .btn-block {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 70%;
+    margin: 5% auto;
+  }
+  .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+  .modal-sm {
+    width: 300px;
+  }
+}
+
+@media (min-width: 992px) {
+  .modal-lg {
+    width: 900px;
+  }
+ 
+}
+ .form-control{
+   background-color: #FFFFFF;
+    background-image: none;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #555555;
+    display: block;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 100%;
+  }
+  .form-control:focus {
+    border-color: #66AFE9;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: 0 none;
+}
+.item{padding: 5px;}
+.has-error .form-control {
+    border-color: #A94442;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+.has-error .form-control:focus {
+    border-color: #843534;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px #CE8483;
+}
+.modal-btn-grp{
+  margin-top: 15px;
+  padding: 19px 0 10px 20px;
+  text-align: right;
+}
+.modal-btn-grp-2{
+  margin-top: 15px;
+  padding: 19px 0 10px 20px;
+  text-align: center;
+  overflow: hidden;
+}
+.modal-btn-grp-2 .col-btn{
+  float: left;
+  width: 100%;
+  display:block;
+  margin-bottom:1em;
+}
+.col-btn img{
+  margin-top: 10px;
+}
+.form-inline{overflow: hidden; border:1px solid #E5E5E5;padding: 0 5% 4% 5%; border-radius: 4px; margin: 20px 0 0;}
+.form-inline > *{ float: left;}
+.form-inline .form-group{width: 70%;margin-right: 10%;}
+.modal-btn-grp-3 span{float: left; margin-top: 2px;}
+.modal-btn-grp-3 button{float: right;}
+.modal-btn-grp-3{
+  margin-top: 15px;
+  padding: 19px 0 10px;
+  text-align: center;
+  overflow: hidden;
+}
+.err-msg{color: red;float: left;clear:both;}
+.hide{display:none;}
+#emailInput, #nameInput, #addressInput {
+  width: 100%;
+}
+#accordion, #addressInput {
+  margin-top: 1em;
+}
+#contextMenu {
+  position: absolute;
+  display:none;
+}
+
+.footertext {
+  width:100%;
+  text-align: center;
+  font-size:4em;
+  background:#e7e7e7;
+  z-index:99999999999999;
+  position:fixed;
+  bottom: 0;
+  margin: 0;
+  padding: 10px;
+  opacity:0.9;
+}
+
+.modalselect
+{
+font-size:200px;
+position:relative;
+}
+
+.btn, .btn:focus
+{
+background-color:#f26522!important;
+border-color:#f26522!important;
+color:#FFF!important;
+box-shadow: none!important;
+-webkit-box-shadow: none!important;
+-moz-box-shadow: none!important;
+-moz-transition: none!important;
+-webkit-transition: none!important; 
+}
+
+.btn:hover
+{
+background-color:#903f16!important;
+border-color:#903f16!important;
+color:#FFF!important;
+box-shadow: none!important;
+-webkit-box-shadow: none!important;
+-moz-box-shadow: none!important;
+-moz-transition: none!important;
+-webkit-transition: none!important;   
+}
