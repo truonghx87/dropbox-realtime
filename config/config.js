@@ -11,7 +11,8 @@ config = {
 				_4r: "4R Pre PS edit",
 				half4r: "Half 4R Pre PS edit",
 				wallet: "Wallet Pre PS edit"
-			}
+			},
+			webhook: "http://dropbox-realtime.herokuapp.com/webhook"
 		},
 		mandrill:{
 			api_key : "zRsQ9cIpBL-ouzrJZSH7CA",
