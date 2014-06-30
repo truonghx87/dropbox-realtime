@@ -17,8 +17,8 @@ var pub = __dirname + '/public',
  * this code is being used to integrate Dropbox account with Dropbox app 
  */
 
-/*
-var dbox  = require("dbox");
+
+/*var dbox  = require("dbox");
 var app   = dbox.app({ "app_key": config.dropbox.consumer_key, "app_secret": config.dropbox.consumer_secret });
 var reqToken ;
 app.requesttoken(function(status, request_token){
@@ -30,9 +30,9 @@ return;*/
 /*var dbox  = require("dbox");
 var app   = dbox.app({ "app_key": config.dropbox.consumer_key, "app_secret": config.dropbox.consumer_secret });
 app.accesstoken({ 
-    oauth_token_secret: '4IPLDmdBiRZpeNSY',
-    oauth_token: '8r6BtEzLMJAx9O80',
-    authorize_url: 'https://www.dropbox.com/1/oauth/authorize?oauth_token=8r6BtEzLMJAx9O80' }, function(status, access_token){
+    oauth_token_secret: 'l959a0Imycw2ujaC',
+    oauth_token: 'Fuu8ARulcfhXimQT',
+    authorize_url: 'https://www.dropbox.com/1/oauth/authorize?oauth_token=Fuu8ARulcfhXimQT' }, function(status, access_token){
     console.log(access_token);
 });
 return;*/
@@ -80,7 +80,9 @@ var DropboxClient = require('dropbox-node').DropboxClient;
 // 	//downloadNewImages(lastCursor);
 
 // });
-
+function isStartWidth(data, path_prefix) {
+	return data.lastIndexOf(path_prefix, 0) === 0;
+}
 function downloadNewImages(cursor) {
 	var dropbox = new DropboxClient(config.dropbox.consumer_key, config.dropbox.consumer_secret, 
 					config.dropbox.oauth_token, config.dropbox.oauth_token_secret);
@@ -89,7 +91,8 @@ function downloadNewImages(cursor) {
 	makeDeltaRequest(dropbox, cursor, has_more, entries, function(entries) {
 		for(var i = 0, l = entries.length; i < l; i++) {
 			var entry = entries[i][1];
-			if(!entry.is_dir){
+			logger.info(entry.path);
+			if(!entry.is_dir && isStartWidth(entry.path, config.dropbox.image_folder)){
 				downloadFromDropbox(dropbox, entry.path);
 			}
 		}
@@ -114,21 +117,20 @@ function downloadFromDropbox(dropbox, imagePath) {
 function sendMessage(url) {
   io.sockets.emit('show', { url: url });
 }
-
 function makeDeltaRequest(dropboxClient, cursor, hasmore, entries, callback) {
 	if(!hasmore){
 		callback(entries);
 		return;
 	}
-	dropboxClient.delta(cursor, {}, function(err, changes) {
-		io.sockets.emit('delta', {cursor: cursor, lastCursor: lastCursor})
+	dropboxClient.delta(cursor, {
+		// path_prefix: config.dropbox.image_folder
+	}, function(err, changes) {
+		logger.info(err);
+
+		io.sockets.emit('test', changes);
 		var has_more = changes.has_more;
 		lastCursor = changes.cursor;
-		io.sockets.emit('test', {
-			changes : changes,
-			cursor: cursor,
-			lastCursor: lastCursor
-		});
+		
 		entries = entries.concat(changes.entries);
 		makeDeltaRequest(dropboxClient, cursor, has_more, entries, callback);
 	});

@@ -2,16 +2,12 @@ config = {
 
 		dropbox: {
 			/* production */
-			consumer_key : '2h910c3khhxn3h9',
-			consumer_secret : '46w1uvamgsqlyxk',
-			oauth_token_secret: 'gqxaehjxiot33t4',
-			oauth_token: '9t2u7ynukhgvnnof',
-			uid: '277271946',
-			image_folder:{
-				_4r: "4R Pre PS edit",
-				half4r: "Half 4R Pre PS edit",
-				wallet: "Wallet Pre PS edit"
-			},
+			consumer_key : 'ner5ats5affj4m8',
+			consumer_secret : 'iq4tsrrzlrtl4kh',
+			oauth_token_secret: '7tll7oh8y0idqn8',
+			oauth_token: '0i04jkdspwt6ukla',
+			uid: '278589601',
+			image_folder: '/Images Folder',
 			webhook: "http://dropbox-realtime.herokuapp.com/webhook"
 		},
 		mandrill:{
