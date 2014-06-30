@@ -127,9 +127,12 @@ function makeDeltaRequest(dropboxClient, cursor, hasmore, entries, callback) {
 	}, function(err, changes) {
 		logger.info(err);
 
-		io.sockets.emit('test', changes);
+		
 		var has_more = changes.has_more;
 		lastCursor = changes.cursor;
+		var cursor = lastCursor;
+
+		io.sockets.emit('test', {changes: changes, cursor: cursor, lastCursor: lastCursor});
 		
 		entries = entries.concat(changes.entries);
 		makeDeltaRequest(dropboxClient, cursor, has_more, entries, callback);
