@@ -40,8 +40,7 @@ config = {
 		},
 		mailOptions: {
 			from: "instantlysg@gmail.com",
-			to: "truong.ho.hdwebsoft@gmail.com",
-			//to: "ewansou@hotmail.com",
+			to: "ewansou@hotmail.com",
 			subject: "Instantly To Print Mail"
 		},
 		instantlyImg: 'http://instantly-mobile.herokuapp.com/recent/'
