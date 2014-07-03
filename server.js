@@ -112,8 +112,9 @@ app.post("/uploaddb", function(req, res) {
 	var amount = req.body.amount;
 	var dropbox = new DropboxClient(config.dropbox.consumer_key, config.dropbox.consumer_secret, 
 					config.dropbox.oauth_token, config.dropbox.oauth_token_secret);
+	var dropboxFilename =  [path.basename(url, path.extname(url)), "-", amount, path.extname(url)].join('');
 	var localPath =  images + path.basename(url),
-		dropboxPath = [config.dropbox.photobooth, [path.basename(url, path.extname(url)), "-", amount, path.extname(url)].join('')].join('/');
+		dropboxPath = [config.dropbox.photobooth, dropboxFilename].join('/');
 	dropbox.putFile(localPath, dropboxPath, function (err, data) {
 
 		if(err) {
@@ -122,7 +123,7 @@ app.post("/uploaddb", function(req, res) {
 
 	});
 	//mail();
-	res.send(200, "OK");
+	res.send(200, {filename : dropboxFilename});
 });
 app.post('/logmail', function(req, res){
   var email = req.body.mail;
@@ -140,6 +141,7 @@ app.post('/logmail', function(req, res){
   smtpTransport.sendMail(mailOptions, function() {
     smtpTransport.close();
   });
+  res.send(200, "");
 });
 
 function downloadFromDropbox(dropbox, imagePath) {

@@ -66,6 +66,9 @@ Dialog.prototype.uploadToDropbox = function(url) {
         	url: self._context.url,
         	amount: self._printAmount
         }
+	}).done(function(data) {
+		self.filename = data.filename;
+		console.log(data);
 	});
 };
 Dialog.prototype.sendLogMail = function (mail, name, address) {
