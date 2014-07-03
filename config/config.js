@@ -8,6 +8,7 @@ config = {
 			oauth_token: '0i04jkdspwt6ukla',
 			uid: '278589601',
 			image_folder: '/Images Folder',
+			photobooth : '/Photobooth To Be Printed',
 			webhook: "http://dropbox-realtime.herokuapp.com/webhook"
 		},
 		mandrill:{

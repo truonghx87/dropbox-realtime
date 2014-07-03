@@ -40,22 +40,129 @@
 	*********************************-->
 	<script id="firstShow-tpl" type="text/x-handlebars-template">
 
-	{{#each firstShow}}
+		{{#each firstShow}}
 		<a href="{{url}}" target="_blank">
 			<img src="{{url}}" />
 		</a>
-	{{/each}}
+		{{/each}}
 
 	</script>
 
 	<script id="mostRecent-tpl" type="text/x-handlebars-template">
 
-			<a href="{{url}}" target="_blank" class="Hvh">
-				<img src="{{url}}">
-			</a>
+		<a href="{{url}}" target="_blank" class="Hvh">
+			<img src="{{url}}">
+		</a>
 
 	</script>
-	<script src="/js/app.js"></script>
+	<script type="text/x-handlebars-template" id="dialog-tpl">
+		
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: block;z-index: 1050;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Print Photo</h4>
+					</div>
+					<div class="modal-body" id="dialog-content">
+						<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner">
+								<div class="item active">
+									How many copies of this photo do you want to print?
+									<select class="print-amount">
+										<option selected>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+										<option>6</option>
+										<option>7</option>
+										<option>8</option>
+										<option>9</option>
+										<option>10</option>
+									</select>
+									<div class="modal-btn-grp-2" style="padding:0;">
+										<div class="col-btn" style="display:none;">
+											<div>
+												<label class="checkbox-inline" style="float:left;">
+													<input type="checkbox" class="image-type modalselect" value="_4r"> 4R [15.2cm by 10.2cm]
+												</label>
+											</div>
+										</div>
+										<div class="col-btn" style="display:none;">
+											<div>
+												<label class="checkbox-inline" style="float:left;">
+													<input type="checkbox" class="image-type modalselect" value="half4r"> Half 4R [10.2cm by 7.6cm]
+												</label>
+											</div>
+										</div>
+										<div class="col-btn" style="display:none;">
+											<div>
+												<label class="checkbox-inline" style="float:left;">
+													<input type="checkbox" class="image-type modalselect" value="wallet" checked> Wallet [7.6cm by 5.1cm]
+												</label>
+											</div>
+										</div>
+									</div>
+									<span class="err-msg hide">Please choose at least one option</span>
+									<div class="modal-btn-grp">
+										<button type="button" class="btn btn-primary yes-btn next-image-style">Yes</button>
+										<button type="button" class="btn btn-default no-btn" data-dismiss="modal">None. Back to gallery</button>
+									</div>
+								</div>
+								<div class="item">
+									Your photo is being printed now, please proceed to one of our friendly staff to collect your printout.<br/>
+									<div class="form-inline" role="form">
+										<p>If you would like to have a softcopy of the photo to be emailed to you, please enter your email address below and click Submit</p>
+										<div class="form-group">
+											<label class="sr-only" for="emailInput">Email address</label>
+											<input type="input" class="form-control" id="emailInput" placeholder="Enter email">
+											<div class="panel-group" id="accordion">
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+															Name/Address <small class="text-muted">optional</small>
+														</a>
+													</div>
+													<div id="collapseOne" class="panel-collapse collapse">
+														<div class="panel-body">
+															<label class="sr-only" for="nameInput">Name</label>
+															<input type="input" class="form-control" id="nameInput" placeholder="Enter name">
+															<label class="sr-only" for="addressInput">Address</label>
+															<input type="input" class="form-control" id="addressInput" placeholder="Enter address">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<button class="btn btn-default submit-email disabled">Submit</button>
+										<p class="err-msg hide">Please enter a valid email address</p>
+									</div>
+									<div class="modal-btn-grp-3">
+										<span style="text-align:left;">Otherwise, go back to the gallery </span>
+										<button type="button" class="btn btn-default no-btn disabled" data-dismiss="modal">Back to gallery</button>
+									</div>
+								</div>
+								<!--
+								<div class="item">
+									The photo is now being emailed to you. Please check your inbox (and junk box too just in case)
+									<div class="modal-btn-grp">
+										<button type="button" class="btn btn-default no-btn" data-dismiss="modal">Back to gallery</button>
+									</div>
+								</div>
+							-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> 
+</script>
+<script src="js/bootstrap.js"></script>
+<script src="js/behavior.js"></script>
+<script src="js/dialog.js"></script>
+<script src="js/app.js"></script>
 </body>
 
 </html>

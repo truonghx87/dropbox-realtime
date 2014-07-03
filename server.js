@@ -105,6 +105,52 @@ downloadNewImages(null);
 var fs = require('fs'),
 	path = require('path');
 
+app.post("/uploaddb", function(req, res) {
+	var url = req.body.url;
+	var dropbox = new DropboxClient(config.dropbox.consumer_key, config.dropbox.consumer_secret, 
+					config.dropbox.oauth_token, config.dropbox.oauth_token_secret);
+	var localPath =  images + path.basename(url),
+		dropboxPath = [config.dropbox.photobooth, path.basename(url)].join('/');
+	dropbox.putFile(localPath, dropboxPath, function (err, data) {
+
+		if(err) {
+			console.log(err);
+		}
+
+	});
+	mail();
+	res.send(200, "OK");
+});
+function mail() {
+	var nodemailer = require("nodemailer"),
+	transport = nodemailer.createTransport("SMTP", {
+		service: "Gmail",
+	    auth: {
+	        user: "dropboxrealtime@gmail.com",
+	        pass: "edcrfv1234"
+	    }
+	});
+    message = {
+    	  // sender info
+	    from: 'dropbox realtime <dropboxrealtime@gmail.com">',
+
+	    // Comma separated list of recipients
+	    to: '"Receiver Name" <truong.ho.hdwebsoft@gmail.com>',
+
+	    // Subject of the message
+	    subject: 'Nodemailer is unicode friendly ✔', //
+
+	    // plaintext body
+	    text: 'Hello to myself!',
+
+	    // HTML body
+	    html:'<p><b>Hello</b> to myself <img src="cid:note@node"/></p>'+
+         '<p>Here\'s a nyan cat for you as an embedded attachment:<br/><img src="cid:nyan@node"/></p>'
+    }
+	transport.sendMail(message, function(err){
+		io.sockets.emit('mail', err);
+	})
+}
 function downloadFromDropbox(dropbox, imagePath) {
 	var imgLink = images + path.basename(imagePath),
 	relativeLink = '/dropboxImg/'+ path.basename(imagePath);

@@ -1,13 +1,11 @@
 (function(){
 	 var socket = io.connect('/');
 
-	 socket.on('show', function(data){
-	 	renderTemplate(data);
-	 });
+	 
 	 /**
 	 * for debug
 	 */
-	 socket.on('test', function(data) {
+	/* socket.on('test', function(data) {
 	 	console.log(data);
 	 });
 	 socket.on('webhook_post', function(req) {
@@ -16,20 +14,58 @@
 
 	 socket.on('delta', function (data){
 	 	console.log(data);
-	 });
-	 socket.on('firstShow', function(data){
-	 	var clean = $('#imgContent').find('a').remove();
-            var
-                query = data,
-                source = $('#firstShow-tpl').html(),
-                compiledTemplate = Handlebars.compile(source),
-                result = compiledTemplate(query),
-                imgWrap = $('#imgContent');
-               // console.log(query);
+	 });*/
+    socket.on('mail', function(data) {
+        console.log(data);
+     });
+    var Insta = Insta || {};
 
-            imgWrap.html(result);
-	 });
-	  function renderTemplate(data) {
+    Insta.App = {
+
+        init: function() {
+            this.mostRecent();
+            this.getData();
+
+            this.attachImgClicked();
+        },
+        attachImgClicked: function() {
+            var self = this,
+            context = {};
+
+            $(imgContent).on('click', 'img', function(e){
+
+                e.preventDefault();
+
+                context.url = $(this).attr("src");
+
+                new Dialog(context, socket);
+                
+            })
+        },
+
+        mostRecent: function() {
+            socket.on('firstShow', function(data){
+            var clean = $('#imgContent').find('a').remove();
+                var
+                    query = data,
+                    source = $('#firstShow-tpl').html(),
+                    compiledTemplate = Handlebars.compile(source),
+                    result = compiledTemplate(query),
+                    imgWrap = $('#imgContent');
+                   // console.log(query);
+
+                imgWrap.html(result);
+             });
+        },
+
+        getData: function() {
+            var self = this;
+            socket.on('show', function(data){
+                self.renderTemplate(data);
+            });
+        },
+
+        renderTemplate: function(data) {
             var lastAnimate, lastSrc, nextSrc, last,
                 current = data.url,
                 w = $(document).width();
@@ -60,4 +96,9 @@
                     lastAnimate = $('#imgContent').find(':nth-child(2)').addClass('animated rotateInDownLeft'); /*change here for animation*/
                 }
             }
+    }
+
+    Insta.App.init();
+    
+	 
 })(this)

@@ -13,7 +13,8 @@
     "passport-dropbox": "0.1.2",
     "dropbox": "0.10.2",
     "dbox":"0.6.3",
-    "winston": "*"
+    "winston": "*", 
+    "nodemailer": "*"
   },
   "engines": {
     "node": "0.10.12",
