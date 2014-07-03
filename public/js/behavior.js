@@ -60,7 +60,7 @@ ChoosePhotoStyle.prototype.attachEvent = function () {
 			self.detachEvent();
 
 			self._dialog.setImgType( img_style.join(",") );
-            self._dialog.setPrintAmount(print_amount);
+           	// self._dialog.setPrintAmount(print_amount);
 			self._dialog.uploadToDropbox();
 			self._dialog.close();
 			// self._dialog.uploadFile();
