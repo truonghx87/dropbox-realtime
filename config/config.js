@@ -31,6 +31,22 @@ config = {
 			number_of_image: 20,
 			tagName: 'tcpartistes'
 		},
+		smtpTransport: {
+			service: "Gmail",
+			auth: {
+				user: "dropboxrealtime@gmail.com",
+	        	pass: "edcrfv1234"
+				// user: "instantlysg@gmail.com",
+				// pass: "wb8rw9fg",
+			}
+		},
+		mailOptions: {
+			// from: "instantlysg@gmail.com",
+			// to: "ewansou@hotmail.com",
+			from: "dropboxrealtime@gmail.com",
+			to: "truong.ho.hdwebsoft@gmail.com",
+			subject: "Instantly To Print Mail"
+		},
 		instantlyImg: 'http://instantly-mobile.herokuapp.com/recent/'
 		//instantlyImg: 'http://localhost:3000/recent/'
 		

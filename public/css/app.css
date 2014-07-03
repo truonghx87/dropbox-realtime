@@ -332,9 +332,9 @@ button.close {
 .col-btn img{
   margin-top: 10px;
 }
-.form-inline{overflow: hidden; border:1px solid #E5E5E5;padding: 0 5% 4% 5%; border-radius: 4px; margin: 20px 0 0;}
-.form-inline > *{ float: left;}
-.form-inline .form-group{width: 70%;margin-right: 10%;}
+.form-inline{overflow: hidden; border:1px solid #E5E5E5;padding: 2%; border-radius: 4px; margin: 20px 0 0;}
+.form-inline > { float: left;}
+.form-inline .form-group{width: 100%;}
 .modal-btn-grp-3 span{float: left; margin-top: 2px;}
 .modal-btn-grp-3 button{float: right;}
 .modal-btn-grp-3{

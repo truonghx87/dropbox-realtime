@@ -59,12 +59,12 @@ ChoosePhotoStyle.prototype.attachEvent = function () {
 
 			self.detachEvent();
 
-			self._dialog.setImgType( img_style.join(",") );
-           	// self._dialog.setPrintAmount(print_amount);
+			// self._dialog.setImgType( img_style.join(",") );
+            self._dialog.setPrintAmount(print_amount);
 			self._dialog.uploadToDropbox();
-			self._dialog.close();
+			//self._dialog.close();
 			// self._dialog.uploadFile();
-			// self._dialog.next (new Printout(self._dialog));
+			self._dialog.next (new Printout(self._dialog));
 
 		} else {
 			$(".err-msg").removeClass("hide");
@@ -99,8 +99,8 @@ Printout.prototype.attachEvent = function () {
 			$(".err-msg").removeClass("hide");
 		} else {
 			self.detachEvent();
-			self._dialog.sendMail(email);
-                        self._dialog.sendLogMail(email, name, address);
+			//self._dialog.sendMail(email);
+            self._dialog.sendLogMail(email, name, address);
 			self._dialog.next (new NullBehavior(self._dialog));
                         $("#myModal").modal("hide");
 		}

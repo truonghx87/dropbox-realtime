@@ -6,6 +6,8 @@ var port = process.env.PORT || 3700;
 var request = require('request');
 var config = require("./config/config").config;
 var logger = require('./model/log');
+
+var nodemailer = require("nodemailer");
 /**
  * Set the paths for your files
  * @type {[string]}
@@ -91,7 +93,7 @@ function downloadNewImages(cursor) {
 	makeDeltaRequest(dropbox, cursor, has_more, entries, function(entries) {
 		for(var i = 0, l = entries.length; i < l; i++) {
 			var entry = entries[i][1];
-			logger.info(entry.path);
+			//logger.info(entry.path);
 			if(!entry.is_dir && isStartWidth(entry.path, config.dropbox.image_folder)){
 				downloadFromDropbox(dropbox, entry.path);
 			}
@@ -107,10 +109,11 @@ var fs = require('fs'),
 
 app.post("/uploaddb", function(req, res) {
 	var url = req.body.url;
+	var amount = req.body.amount;
 	var dropbox = new DropboxClient(config.dropbox.consumer_key, config.dropbox.consumer_secret, 
 					config.dropbox.oauth_token, config.dropbox.oauth_token_secret);
 	var localPath =  images + path.basename(url),
-		dropboxPath = [config.dropbox.photobooth, path.basename(url)].join('/');
+		dropboxPath = [config.dropbox.photobooth, [path.basename(url, path.extname(url)), "-", amount, path.extname(url)].join('')].join('/');
 	dropbox.putFile(localPath, dropboxPath, function (err, data) {
 
 		if(err) {
@@ -118,39 +121,27 @@ app.post("/uploaddb", function(req, res) {
 		}
 
 	});
-	mail();
+	//mail();
 	res.send(200, "OK");
 });
-function mail() {
-	var nodemailer = require("nodemailer"),
-	transport = nodemailer.createTransport("SMTP", {
-		service: "Gmail",
-	    auth: {
-	        user: "dropboxrealtime@gmail.com",
-	        pass: "edcrfv1234"
-	    }
-	});
-    message = {
-    	  // sender info
-	    from: 'dropbox realtime <dropboxrealtime@gmail.com">',
+app.post('/logmail', function(req, res){
+  var email = req.body.mail;
+  var name = req.body.name;
+  var address = req.body.address;
+  var filename = req.body.filename;
 
-	    // Comma separated list of recipients
-	    to: '"Receiver Name" <truong.ho.hdwebsoft@gmail.com>',
+  var smtpTransport = nodemailer.createTransport("SMTP", config.smtpTransport);
+  var mailOptions = config.mailOptions;
+  mailOptions.text =
+    "Email: " + email + "\n" +
+    "Name: " + name + "\n" +
+    "Address: " + address + "\n" +
+    "File name: " + filename + "\n";
+  smtpTransport.sendMail(mailOptions, function() {
+    smtpTransport.close();
+  });
+});
 
-	    // Subject of the message
-	    subject: 'Nodemailer is unicode friendly ✔', //
-
-	    // plaintext body
-	    text: 'Hello to myself!',
-
-	    // HTML body
-	    html:'<p><b>Hello</b> to myself <img src="cid:note@node"/></p>'+
-         '<p>Here\'s a nyan cat for you as an embedded attachment:<br/><img src="cid:nyan@node"/></p>'
-    }
-	transport.sendMail(message, function(err){
-		io.sockets.emit('mail', err);
-	})
-}
 function downloadFromDropbox(dropbox, imagePath) {
 	var imgLink = images + path.basename(imagePath),
 	relativeLink = '/dropboxImg/'+ path.basename(imagePath);
