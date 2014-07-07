@@ -204,6 +204,10 @@ io.configure(function () {
 io.sockets.on('connection', function (socket) {
 	
 	var filenames = fs.readdirSync(images);
+	filenames = filenames.filter(function(filename){
+		logger.info(filename);
+		return filename !== '.keep';
+	});
 	filenames = filenames.map(function(filename){
 		return {url: ['/dropboxImg/', filename].join('')};
 	});
