@@ -152,7 +152,7 @@ app.post('/logmail', function(req, res){
 function deleteImage(imagePath) {
 
 	io.sockets.emit('delete', {imagePath: imagePath});
-	var imgLink = images + path.basename(imagePath);
+	var imgLink = (images + path.basename(imagePath)).toLowerCase();
 
 	var fs = require('fs');
 
@@ -164,7 +164,7 @@ function deleteImage(imagePath) {
 }
 
 function downloadFromDropbox(dropbox, imagePath) {
-	var imgLink = images + path.basename(imagePath),
+	var imgLink = (images + path.basename(imagePath)).toLowerCase(),
 	relativeLink = '/dropboxImg/'+ path.basename(imagePath);
 	var file = fs.createWriteStream(imgLink);
 	dropbox.getFile(imagePath).pipe(file); 
