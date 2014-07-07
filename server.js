@@ -94,9 +94,13 @@ function downloadNewImages(cursor) {
 		io.sockets.emit('entries', {entries:  JSON.stringify(entries)} )		
 		for(var i = 0, l = entries.length; i < l; i++) {
 			var entry = entries[i][1];
-			if(!entry.is_dir && isStartWidth(entry.path, config.dropbox.image_folder)){
-				io.sockets.emit('entry', {entry: JSON.stringify(entry)});
-				downloadFromDropbox(dropbox, entry.path);
+			if(entry) {
+				if(!entry.is_dir && isStartWidth(entry.path, config.dropbox.image_folder)){
+					io.sockets.emit('entry', {entry: JSON.stringify(entry)});
+					downloadFromDropbox(dropbox, entry.path);
+				}
+			} else {
+				deleteImage(entries[i][0]);
 			}
 		}
 	});
@@ -144,6 +148,17 @@ app.post('/logmail', function(req, res){
   });
   res.send(200, "");
 });
+
+function deleteImage(imagePath) {
+
+	var imgLink = images + path.basename(imagePath);
+
+	var fs = require('fs');
+
+	fs.unlink(imgLink, function (err) {
+	  
+	});
+}
 
 function downloadFromDropbox(dropbox, imagePath) {
 	var imgLink = images + path.basename(imagePath),
