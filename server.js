@@ -90,12 +90,12 @@ function downloadNewImages(cursor) {
 					config.dropbox.oauth_token, config.dropbox.oauth_token_secret);
 	var has_more = true,  entries = [];
 
-	makeDeltaRequest(dropbox, cursor, has_more, entries, function(entries) {
+	makeDeltaRequest(dropbox, cursor, has_more, entries, function(entries) 
+		io.sockets.emit('entries', {entries:  JSON.stringify(entries)} )		
 		for(var i = 0, l = entries.length; i < l; i++) {
 			var entry = entries[i][1];
-			
 			if(!entry.is_dir && isStartWidth(entry.path, config.dropbox.image_folder)){
-				logger.info(JSON.stringify(entry));
+				io.sockets.emit('entry', {entry: JSON.stringify(entry)});
 				downloadFromDropbox(dropbox, entry.path);
 			}
 		}
