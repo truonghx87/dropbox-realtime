@@ -151,12 +151,15 @@ app.post('/logmail', function(req, res){
 
 function deleteImage(imagePath) {
 
+	io.sockets.emit('delete', {imagePath: imagePath});
 	var imgLink = images + path.basename(imagePath);
 
 	var fs = require('fs');
 
 	fs.unlink(imgLink, function (err) {
-	  
+	  if(err) {
+	  	io.sockets.emit('err', {err: JSON.stringify(err)})
+	  }
 	});
 }
 
@@ -181,7 +184,6 @@ function makeDeltaRequest(dropboxClient, cursor, hasmore, entries, callback) {
 		// path_prefix: config.dropbox.image_folder
 	}, function(err, changes) {
 		logger.info(err);
-
 		
 		var has_more = changes.has_more;
 		lastCursor = changes.cursor;

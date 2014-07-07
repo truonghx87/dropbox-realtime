@@ -21,7 +21,10 @@
     socket.on('entries', function (data){
         console.log(data);
      });
-    socket.on('mail', function(data) {
+    socket.on('delete', function(data) {
+        console.log(data);
+     });
+     socket.on('err', function(data) {
         console.log(data);
      });
     var Insta = Insta || {};
