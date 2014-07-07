@@ -93,8 +93,9 @@ function downloadNewImages(cursor) {
 	makeDeltaRequest(dropbox, cursor, has_more, entries, function(entries) {
 		for(var i = 0, l = entries.length; i < l; i++) {
 			var entry = entries[i][1];
-			//logger.info(entry.path);
+			
 			if(!entry.is_dir && isStartWidth(entry.path, config.dropbox.image_folder)){
+				logger.info(JSON.stringify(entry));
 				downloadFromDropbox(dropbox, entry.path);
 			}
 		}
