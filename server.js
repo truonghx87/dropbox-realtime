@@ -186,15 +186,20 @@ io.configure(function () {
 });
 
 io.sockets.on('connection', function (socket) {
-	var filenames = fs.readdirSync(images)
-              .map(function(v) { 
-                  return { 
-                  			name:v,
-							time:fs.statSync(images + v).mtime.getTime()
-                         }; 
-               })
-               .sort(function(a, b) { return a.time - b.time > 0; })
-               .map(function(v) { return {url: ['/dropboxImg/', v.name].join('') } });
-	socket.emit('firstShow', {firstShow: filenames });
+	// var filenames = fs.readdirSync(images)
+ //              .map(function(v) { 
+ //                  return { 
+ //                  			name:v,
+	// 						time:fs.statSync(images + v).mtime.getTime()
+ //                         }; 
+ //               })
+ //               .sort(function(a, b) { return a.time - b.time > 0; })
+ //               .map(function(v) { return {url: ['/dropboxImg/', v.name].join('') } });
+	// socket.emit('firstShow', {firstShow: filenames });
+		var filenames = fs.readdirSync(images);
+		filenames = filenames.map(function(filename){
+		return {url: ['/dropboxImg/', filename].join('')};
+		});
+		socket.emit('firstShow', {firstShow: filenames });
 });
 
