@@ -91,10 +91,11 @@ function downloadNewImages(cursor) {
 	var has_more = true,  entries = [];
 
 	makeDeltaRequest(dropbox, cursor, has_more, entries, function(entries) {
+		io.sockets.emit('entries', {entries:  JSON.stringify(entries)} )		
 		for(var i = 0, l = entries.length; i < l; i++) {
 			var entry = entries[i][1];
-			//logger.info(entry.path);
 			if(!entry.is_dir && isStartWidth(entry.path, config.dropbox.image_folder)){
+				io.sockets.emit('entry', {entry: JSON.stringify(entry)});
 				downloadFromDropbox(dropbox, entry.path);
 			}
 		}
@@ -186,20 +187,11 @@ io.configure(function () {
 });
 
 io.sockets.on('connection', function (socket) {
-	// var filenames = fs.readdirSync(images)
- //              .map(function(v) { 
- //                  return { 
- //                  			name:v,
-	// 						time:fs.statSync(images + v).mtime.getTime()
- //                         }; 
- //               })
- //               .sort(function(a, b) { return a.time - b.time > 0; })
- //               .map(function(v) { return {url: ['/dropboxImg/', v.name].join('') } });
-	// socket.emit('firstShow', {firstShow: filenames });
-		var filenames = fs.readdirSync(images);
-		filenames = filenames.map(function(filename){
+	
+	var filenames = fs.readdirSync(images);
+	filenames = filenames.map(function(filename){
 		return {url: ['/dropboxImg/', filename].join('')};
-		});
-		socket.emit('firstShow', {firstShow: filenames });
+	});
+	socket.emit('firstShow', {firstShow: filenames });
 });
 

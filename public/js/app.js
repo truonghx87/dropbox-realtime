@@ -15,6 +15,12 @@
 	 socket.on('delta', function (data){
 	 	console.log(data);
 	 });*/
+    socket.on('entry', function (data){
+        console.log(data);
+     });
+    socket.on('entries', function (data){
+        console.log(data);
+     });
     socket.on('mail', function(data) {
         console.log(data);
      });
