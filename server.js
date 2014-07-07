@@ -165,7 +165,7 @@ function deleteImage(imagePath) {
 
 function downloadFromDropbox(dropbox, imagePath) {
 	var imgLink = images + path.basename(imagePath).toLowerCase(),
-	relativeLink = '/dropboxImg/'+ path.basename(imagePath);
+	relativeLink = '/dropboxImg/'+ path.basename(imagePath).toLowerCase();
 	var file = fs.createWriteStream(imgLink);
 	dropbox.getFile(imagePath).pipe(file); 
 	sendMessage(relativeLink);
