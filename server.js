@@ -96,7 +96,6 @@ function downloadNewImages(cursor) {
 			var entry = entries[i][1];
 			if(entry) {
 				if(!entry.is_dir && isStartWidth(entry.path, config.dropbox.image_folder)){
-					io.sockets.emit('entry', {entry: JSON.stringify(entry)});
 					downloadFromDropbox(dropbox, entry.path);
 				}
 			} else {
@@ -104,7 +103,6 @@ function downloadNewImages(cursor) {
 			}
 		}
 	});
-	logger.info("lastCursor: " + lastCursor);
 };
 
 downloadNewImages(null);
@@ -151,14 +149,14 @@ app.post('/logmail', function(req, res){
 
 function deleteImage(imagePath) {
 
-	io.sockets.emit('delete', {imagePath: imagePath});
+	//io.sockets.emit('delete', {imagePath: imagePath});
 	var imgLink = images + (path.basename(imagePath)).toLowerCase();
 
 	var fs = require('fs');
 
 	fs.unlink(imgLink, function (err) {
 	  if(err) {
-	  	io.sockets.emit('err', {err: JSON.stringify(err)})
+	  	//io.sockets.emit('err', {err: JSON.stringify(err)})
 	  }
 	});
 }
@@ -189,7 +187,7 @@ function makeDeltaRequest(dropboxClient, cursor, hasmore, entries, callback) {
 		lastCursor = changes.cursor;
 		var cursor = lastCursor;
 
-		io.sockets.emit('test', {changes: changes, cursor: cursor, lastCursor: lastCursor});
+		//io.sockets.emit('test', {changes: changes, cursor: cursor, lastCursor: lastCursor});
 		
 		entries = entries.concat(changes.entries);
 		makeDeltaRequest(dropboxClient, cursor, has_more, entries, callback);

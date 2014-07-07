@@ -2,31 +2,7 @@
 	 var socket = io.connect('/');
 
 	 
-	 /**
-	 * for debug
-	 */
-	/* socket.on('test', function(data) {
-	 	console.log(data);
-	 });
-	 socket.on('webhook_post', function(req) {
-	 	console.log(req);
-	 });
-
-	 socket.on('delta', function (data){
-	 	console.log(data);
-	 });*/
-    socket.on('entry', function (data){
-        console.log(data);
-     });
-    socket.on('entries', function (data){
-        console.log(data);
-     });
-    socket.on('delete', function(data) {
-        console.log(data);
-     });
-     socket.on('err', function(data) {
-        console.log(data);
-     });
+	
     var Insta = Insta || {};
 
     Insta.App = {
